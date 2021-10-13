@@ -237,6 +237,7 @@ class BST {
         //this.drawDelete(rootNode, metaData, "black");
         // this.drawDelete(succPrevNode, metaData, "red");
         this.drawDelete(successorNode, metaData, "black");
+        const p3 = new Promise((res,rej)=>{
         setTimeout(() => {
           if (rootNode == succPrevNode) {
             rootNode.data = successorNode.data;
@@ -255,13 +256,18 @@ class BST {
             succPrevNode.left = successorNode.right;
             successorNode.right = null;
           }
-        }, metaData.time);
-        metaData.time += metaData.animationTime;
+          res(this.drawDelete(rootNode, metaData, "rgb(31,9,117)"));
+        }, metaData.time-metaData.animationTime*2);
+      });
+       // metaData.time += metaData.animationTime;
         this.clearNode(successorNode, metaData, "black");
         if (rootNode != succPrevNode) {
-          return this.drawDelete(succPrevNode, metaData, "rgb(31,9,117)");
+           this.drawDelete(succPrevNode, metaData, "rgb(31,9,117)");
         }
-        return this.drawDelete(rootNode, metaData, "rgb(31,9,117)");
+       // debugger;
+       // this.drawDelete(rootNode, metaData, "blue");
+       //  this.drawDelete(rootNode, metaData, "rgb(31,9,117)");
+         return p3;
       }
       //only child present
       else {
